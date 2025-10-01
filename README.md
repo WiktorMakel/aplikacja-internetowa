@@ -16,3 +16,6 @@ U góry bedzie pojazd a podnim kilka odpowiedzi którą będzie trzeba zaznaczy�
 Przebieg rozgrywki
 
 zdjęcie lub nazwa pojazdu w zależności jakie bedą odpowiedzi bedzie trzeba zaznaczyć właściwą w przeciwnym razie gracz nie otrzyma punktów
+
+
+https://wiktormakel.github.io/aplikacja-internetowa/
