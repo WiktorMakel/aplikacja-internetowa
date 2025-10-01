@@ -4,7 +4,7 @@ Quiz o pojazdach, sprawdzający znajomość pojazdów ze starwars
 Wprowadzenie
 
 aplikacja to quiz sprawdzający znajomość informacji o pojeździe
-Użytkownik będzie zaznaczał odpowiedzi o informacjiach o samochodzie np. doczego służy.
+Użytkownik będzie zaznaczał odpowiedzi o informacjiach o samochodzie np. ilość pasażerów którą dany pojazd może wziąść.
 Każdy pojazd będzie wyświetlany losowo.
 suma poprawnych odpowiedźi będzie stanowiła wynik gracza.
 
@@ -15,4 +15,4 @@ U góry bedzie pojazd a podnim kilka odpowiedzi którą będzie trzeba zaznaczy�
 
 Przebieg rozgrywki
 
-zdjęcie lub nazwa pojazdu w zależności jakie bedą odpowiedzi bedzie trzeba zaznaczyć właściwą
+zdjęcie lub nazwa pojazdu w zależności jakie bedą odpowiedzi bedzie trzeba zaznaczyć właściwą w przeciwnym razie gracz nie otrzyma punktów
