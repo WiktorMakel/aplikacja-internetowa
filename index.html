@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8">
+  <title>Star Wars Quiz - Pojazdy</title>
+  <style>
+    body {
+      font-family: 'Orbitron', Arial, sans-serif;
+      background: #111;
+      color: #ffeb3b;
+      text-align: center;
+      margin: 0;
+      padding: 0;
+    }
+    .container {
+      max-width: 900px;
+      margin: auto;
+      padding: 20px;
+    }
+    .score {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      font-size: 20px;
+      background: #222;
+      padding: 10px 20px;
+      border-radius: 10px;
+      color: #ffeb3b;
+    }
+    .question {
+      margin: 30px 0;
+      font-size: 24px;
+      font-weight: bold;
+      color: #ffeb3b;
+      text-shadow: 0 0 5px #ffeb3b, 0 0 10px #ffeb3b;
+    }
+    .answers button {
+      margin: 10px;
+      padding: 15px 25px;
+      background: #333;
+      color: #ffeb3b;
+      border: 2px solid #555;
+      cursor: pointer;
+      border-radius: 8px;
+      transition: 0.2s;
+      font-family: 'Orbitron', Arial, sans-serif;
+      font-weight: bold;
+    }
+    .answers button:hover {
+      background: #555;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="score">Wynik: <span id="score">0</span></div>
+    <h1>Quiz Star Wars</h1>
+    <div class="question" id="question">Ładowanie pytania...</div>
+    <div class="answers" id="answers"></div>
+  </div>
+
+<script>
+let score = 0;
+let questionCount = 0;
+const maxquestions = 10;
+
+function loadQuestion() {
+    if (questionCount >= maxquestions){
+        document.getElementById("question").innerHTML = `koniec quizu! twój wynik: ${score} / ${maxquestions}`;
+        document.getElementById("answers").innerHTML = "";
+        return;
+    }
+
+    const questionEl = document.getElementById("question");
+    const answersEl = document.getElementById("answers");
+    answersEl.innerHTML = "";
+
+    const id = Math.floor(Math.random() * 39) + 1;
+
+    fetch(`https://swapi.dev/api/vehicles/${id}/`)
+        .then(res => res.json())
+        .then(vehicle => {
+            if (vehicle.detail) {
+                loadQuestion();
+                return;
+            }
+
+            let crew = vehicle.crew.replace(/,/g, '').trim();
+            if (crew.toLowerCase() === "unknown" || crew.toLowerCase() === "n/a" || isNaN(crew)) {
+                loadQuestion();
+                return;
+            }
+
+            const correctAnswer = crew;
+
+            questionEl.innerHTML = `Ile osób liczy załoga pojazdu <b>${vehicle.name}</b>?`;
+
+            let answers = [correctAnswer];
+            while (answers.length < 4) {
+                const fake = Math.floor(Math.random() * 500) + 1;
+                if (!answers.includes(String(fake))) answers.push(String(fake));
+            }
+
+            answers = answers.sort(() => Math.random() - 0.5);
+
+            answers.forEach(ans => {
+                const btn = document.createElement("button");
+                btn.textContent = ans;
+                btn.onclick = () => {
+                    if (ans === correctAnswer) {
+                    score++;
+                    document.getElementById("score").textContent = score;
+                }
+                questionCount++;
+                loadQuestion();
+            };
+            answersEl.appendChild(btn);
+        });
+    })
+    .then(undefined, () => {
+      loadQuestion();
+    });
+}
+
+loadQuestion();
+</script>
+
+
+</body>
+</html>
